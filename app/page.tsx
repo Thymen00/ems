@@ -68,7 +68,7 @@ export default function EMS () {
 
       )}
 
-          {/* <div className="bg-red-200 border-2 p-5 w-[60%] gap-10">
+          <div className="bg-red-200 border-2 p-5 w-[60%] gap-10">
               <div className="font-bold text-xl">
                 <p>Manager login</p>
               </div>  
@@ -102,7 +102,7 @@ export default function EMS () {
                   />
                 </p>
               </div>  
-            </div> */}
+            </div>
 
     </div>
   )
