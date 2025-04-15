@@ -8,6 +8,21 @@ const nextConfig: NextConfig = {
         hostname: 'computing.psu.ac.th',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'cdn-icons-png.flaticon.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'icons.veryicon.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'static.thenounproject.com',
+        pathname: '/**',
+      },
     ],
   },
 };
