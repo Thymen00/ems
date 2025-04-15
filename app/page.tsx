@@ -68,42 +68,6 @@ export default function EMS () {
 
       )}
 
-          <div className="bg-red-200 border-2 p-5 w-[60%] gap-10">
-              <div className="font-bold text-xl">
-                <p>Manager login</p>
-              </div>  
-              <div className="flex flex-nowrap mt-5 gap-10">
-                <p className="" >Manager ID: 
-                  <input
-                  className="border-2 bg-gray-300 rounded-lg ml-5"
-                  />
-                </p>
-                <p className="" >Manager password:
-                  <input
-                  className="border-2 bg-gray-300 rounded-lg ml-5"
-                  />
-                </p>
-              </div>  
-            </div>
-
-            <div className="bg-yellow-200 border-2 p-5 w-[60%] gap-10">
-              <div className="font-bold text-xl">
-                <p>Employee login</p>
-              </div>  
-              <div className="flex flex-nowrap mt-5 gap-10">
-                <p className="" >Employee ID: 
-                  <input
-                  className="border-2 bg-gray-300 rounded-lg ml-5"
-                  />
-                </p>
-                <p className="" >Employee password:
-                  <input
-                  className="border-2 bg-gray-300 rounded-lg ml-5"
-                  />
-                </p>
-              </div>  
-            </div>
-
     </div>
   )
 }
