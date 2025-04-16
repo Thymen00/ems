@@ -23,6 +23,12 @@ const nextConfig: NextConfig = {
         hostname: 'static.thenounproject.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'cdn4.iconfinder.com',
+        pathname: '/**',
+      },
+      
     ],
   },
 };

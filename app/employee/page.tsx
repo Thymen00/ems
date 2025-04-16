@@ -66,7 +66,7 @@ export default function employee () {
                         </ul>
                     </div>
                     <div className=' col-2 row-2 relative'>
-                            <Link className=' border-2 flex justify-center items-center gap-2 rounded-xl w-30 h-15 p-3 absolute bottom-5 right-5 font-bold hover:underline decoration-sky-500'
+                        <Link className=' border-2 flex justify-center items-center gap-2 rounded-xl w-30 h-15 p-3 absolute bottom-5 right-5 font-bold hover:underline decoration-sky-500'
                                 href="/employee/information-edit">
                             <p>Next</p>
                             <p><ArrowRight /></p>
@@ -95,10 +95,11 @@ export default function employee () {
                         </ul>
                     </div>
                     <div className=' col-2 row-2 relative'>
-                        <div className=' border-2 flex justify-center items-center gap-2 rounded-xl w-30 h-15 p-3 absolute bottom-5 right-5 font-bold hover:underline decoration-sky-500'>
+                        <Link className=' border-2 flex justify-center items-center gap-2 rounded-xl w-30 h-15 p-3 absolute bottom-5 right-5 font-bold hover:underline decoration-sky-500'
+                                href="/employee/Attendance-dashboard">
                             <p>Next</p>
                             <p><ArrowRight /></p>
-                        </div>
+                        </Link>
                     </div>
                 </div>
 
@@ -124,10 +125,11 @@ export default function employee () {
                         </ul>
                     </div>
                     <div className=' col-2 row-2 relative'>
-                        <div className=' border-2 flex justify-center items-center gap-2 rounded-xl w-30 h-15 p-3 absolute bottom-5 right-5 font-bold hover:underline decoration-sky-500'>
+                        <Link className=' border-2 flex justify-center items-center gap-2 rounded-xl w-30 h-15 p-3 absolute bottom-5 right-5 font-bold hover:underline decoration-sky-500'
+                                href="/employee/Leave-managemant">
                             <p>Next</p>
                             <p><ArrowRight /></p>
-                        </div>
+                        </Link>
                     </div>
                 </div>
 
@@ -154,10 +156,11 @@ export default function employee () {
                         </ul>
                     </div>
                     <div className=' col-2 row-2 relative'>
-                        <div className=' border-2 flex justify-center items-center gap-2 rounded-xl w-30 h-15 p-3 absolute bottom-5 right-5 font-bold hover:underline decoration-sky-500'>
+                        <Link className=' border-2 flex justify-center items-center gap-2 rounded-xl w-30 h-15 p-3 absolute bottom-5 right-5 font-bold hover:underline decoration-sky-500'
+                                href="/employee/Salary-history">
                             <p>Next</p>
                             <p><ArrowRight /></p>
-                        </div>
+                        </Link>
                     </div>
                 </div>
 
@@ -184,10 +187,11 @@ export default function employee () {
                         </ul>
                     </div>
                     <div className=' col-2 row-2 relative'>
-                        <div className=' border-2 flex justify-center items-center gap-2 rounded-xl w-30 h-15 p-3 absolute bottom-5 right-5 font-bold hover:underline decoration-sky-500'>
+                        <Link className=' border-2 flex justify-center items-center gap-2 rounded-xl w-30 h-15 p-3 absolute bottom-5 right-5 font-bold hover:underline decoration-sky-500'
+                                href="/employee/Information-view">
                             <p>Next</p>
                             <p><ArrowRight /></p>
-                        </div>
+                        </Link>
                     </div>
                 </div>
 

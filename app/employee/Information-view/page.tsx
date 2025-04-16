@@ -60,7 +60,7 @@ const handleDropdownClick = (id: number) => {
 };
 
     return (
-    <div className='bg-blue-100 h-screen'>
+        <div className='bg-blue-100 h-screen'>
         <div className="grid grid-cols-[20%_80%] grid-rows-[12.5%_87.5%] w-[100%] h-[100%] ">
             <div className=' flex col-span-2  border-b'>
             <Link className='text-xl font-bold hover:shadow-xl/20 bg-blue-200 flex justify-center items-center p-5 rounded-xl h-15 w-30 mt-2.5 ml-2'
@@ -95,38 +95,39 @@ const handleDropdownClick = (id: number) => {
             ))}
             </div>
             
-            <div className='grid grid-cols-2 grid-rows-4'>
-                <div className='row-1 col-span-2  font-bold text-3xl flex items-end justify-center -mb-7'>Input the data you wish to add to the system:</div>
-                <div className='grid col-1 row-2  grid-cols-1 grid-rows-[23%_23%_8%_23%_23%]  '>
-                    <div className=' h-25 w-[50%]  bottom-0 rounded-xl bg-slate-100 mt-13 ml-70'>
-                        
-                    <input
-                            placeholder='Data'
-                            className='col-1 row-4 border-1 ml-2 flex items-center p-2 w-[80%] h-10 mt-7'
-                        />
-                        <p className='text-red-500 text-sm ml-3'>Please input your data</p>
+            <div className="grid col-2 row-2 grid grid-cols-2 grid-rows-3 ">
+                <div className='grid col-1 row-span-2  grid-rows-6 grid-cols-1 ml-40'>
+                    <p className='row-1  font-bold flex items-end ml-5 text-2xl w-150'>Choose the data you wish to edit in the system</p>
+                    <p className='row-2  flex items-center rounded-xl w-[50%] p-5 h-10 ml-5 mt-3 text-lg bg-gray-300 gap-3 '>Please choose <ChevronsDown /></p>
+                    <div className='row-span-3 border-1 rounded-xl m-5 w-[70%] h-50 text-xl -mt-1 '>
+                        <ul className='list-disc pl-6 p-5 ml-5'>
+                            <li className='hover:underline'>First and last name</li>
+                            <li className='hover:underline'>E-mail</li>
+                            <li className='hover:underline'>Phone number</li>
+                            <li className='hover:underline'>Home address</li>
+                            <li className='hover:underline'>Job role</li>
+                        </ul>
+                    </div>
+                    <p className='row-6  ml-6 text-red-500'>Please select your data.</p>
+                </div>
+                <div className='grid col-2 row-1  grid-cols-1 grid-rows-[23%_23%_8%_23%_23%]'>
+                    <div className='h-25 w-[50%] mt-45 ml-20 rounded-xl bg-slate-100 '>
+                        <p className='col-1 row-2  flex items-end ml-2 font-bold'>Data already in system: </p>
+                        <p className='col-1 row-3  flex items-center ml-2'>-------</p>
+                        <p className='col-1 row-4 border-1 ml-2 flex items-center p-2 w-[80%] h-10 mt-1'>Data</p>
                     </div>
                 </div>
-                <div className='grid col-2 row-2  grid-cols-1 grid-rows-[23%_23%_8%_23%_23%]  '>
-                    <div className=' h-25 w-[50%]  bottom-0 rounded-xl bg-slate-100 mt-13 ml-10'>
-                        
-                        <input
-                            placeholder='Information'
-                            className='col-1 row-4 border-1 ml-2 flex items-center p-2 w-[80%] h-10 mt-7'
-                        />
-                        <p className='text-red-500 text-sm ml-3'>Please input the information</p>
-                    </div>
+                
+                <div className='grid col-1 row-3 '>
+                    <p className=' h-[30%] w-[30%] font-bold text-2xl flex items-center justify-center rounded-xl bg-blue-200 translate-x-[130%] translate-y-[110%] hover:bg-blue-300'>Save data <BadgeCheck /></p>
                 </div>
-                <div className='grid col-1 row-4 '>
-                    <p className=' h-[40%] w-[40%] font-bold text-2xl flex items-center justify-center rounded-xl bg-blue-200 translate-x-[120%] translate-y-[80%] hover:bg-blue-300'>Save data</p>
-                </div>
-                <div className='grid col-2 row-4'>
-                    <p className=' h-[40%] w-[40%] font-bold text-2xl flex items-center justify-center rounded-xl bg-blue-200 translate-x-[30%] translate-y-[80%] hover:bg-red-500'>Cancel</p>
+                <div className='grid col-2 row-3 '>
+                    <p className=' h-[30%] w-[30%] font-bold text-2xl flex items-center justify-center rounded-xl bg-blue-200 translate-x-[80%] translate-y-[110%] hover:bg-red-500'>Cancel</p>
                 </div>
             </div>
         </div>
-    </div>
+        </div>
     )
-}
+    }
 
 export default DropdownComponent;

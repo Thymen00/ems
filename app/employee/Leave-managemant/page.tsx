@@ -1,7 +1,8 @@
 'use client'
 import { useState } from 'react';
 import Link from 'next/link';
-import { ChevronRight, ChevronDown, ChevronsDown, BadgeCheck } from "lucide-react"
+import { ChevronRight, ChevronDown, ChevronsDown} from "lucide-react"
+import Image from 'next/image'
 
 // Define a type for each dropdown item
 type DropdownItem = {
@@ -95,33 +96,43 @@ const handleDropdownClick = (id: number) => {
             ))}
             </div>
             
-            <div className='grid grid-cols-2 grid-rows-4'>
-                <div className='row-1 col-span-2  font-bold text-3xl flex items-end justify-center -mb-7'>Input the data you wish to add to the system:</div>
-                <div className='grid col-1 row-2  grid-cols-1 grid-rows-[23%_23%_8%_23%_23%]  '>
-                    <div className=' h-25 w-[50%]  bottom-0 rounded-xl bg-slate-100 mt-13 ml-70'>
-                        
-                    <input
-                            placeholder='Data'
-                            className='col-1 row-4 border-1 ml-2 flex items-center p-2 w-[80%] h-10 mt-7'
+            <div className="grid col-2 row-2 grid grid-cols-2 grid-rows-3 ">
+                <div className='col-1 row-1  grid grid-cols-1 grid-rows-2'>
+                    <div className='col-1 row-1  font-bold text-xl ml-15 flex items-end'>Employee requesting to leave:</div>
+                    <div className='col-1 row-2 bg-gray-50 border-1 border-gray-400 flex ml-15 p-2 items-center w-[20%] h-[30%]'>Name</div>
+                </div>
+                <div className='col-1 row-2  grid grid-cols-2 grid-rows-3'>
+                    <div className='col-1 row-span-2 '>
+                        <Image
+                            className='m-5 ml-25'
+                            src="https://cdn4.iconfinder.com/data/icons/face-id/500/face-id-authentication-facial_2-512.png"
+                            width={100}
+                            height={100}
+                            alt="Face scan"
                         />
-                        <p className='text-red-500 text-sm ml-3'>Please input your data</p>
                     </div>
-                </div>
-                <div className='grid col-2 row-2  grid-cols-1 grid-rows-[23%_23%_8%_23%_23%]  '>
-                    <div className=' h-25 w-[50%]  bottom-0 rounded-xl bg-slate-100 mt-13 ml-10'>
-                        
-                        <input
-                            placeholder='Information'
-                            className='col-1 row-4 border-1 ml-2 flex items-center p-2 w-[80%] h-10 mt-7'
-                        />
-                        <p className='text-red-500 text-sm ml-3'>Please input the information</p>
+                    <div className='col-1 row-3'>
+                        <div className=' w-[60%] ml-18'>
+                            <p className='font-bold  ml-13 '>Face ID</p>
+                            <p className='text-red-500 text-sm '>Please scan your face ID</p>
+                        </div> 
                     </div>
+                        <div className='col-2 row-span-2 font-bold text-xl   flex items-center font-bold text-lg '>Face scan status</div>
+                        <div className='col-2 row-3 bg-gray-50 border-1 border-gray-400 -mt-10 flex  p-2 items-center w-[40%] h-[35%]'>Completed</div>
                 </div>
-                <div className='grid col-1 row-4 '>
-                    <p className=' h-[40%] w-[40%] font-bold text-2xl flex items-center justify-center rounded-xl bg-blue-200 translate-x-[120%] translate-y-[80%] hover:bg-blue-300'>Save data</p>
+                <div className='col-2 row-span-2  grid grid-cols-1 grid-rows-3'>
+                    <div className=' col-1 row-1  flex items-center rounded-xl w-[80%] p-5 h-10 text-lg bg-gray-300 gap-3 ml-10 mt-35'>Enter the time and date you wish to leave <ChevronsDown /></div>
+                    <input 
+                        placeholder='Start date'
+                        className=' col-1 row-2 bg-indigo-200  flex items-center rounded-xl w-[80%] p-5 h-10 text-lg bg-gray-300 gap-3 mt-25 ml-10' 
+                    />
+                    <input 
+                        placeholder='Final date'
+                        className=' col-1 row-3 bg-indigo-200  flex items-center rounded-xl w-[80%] p-5 h-10 text-lg bg-gray-300 gap-3 mt-10 ml-10' 
+                    />
                 </div>
-                <div className='grid col-2 row-4'>
-                    <p className=' h-[40%] w-[40%] font-bold text-2xl flex items-center justify-center rounded-xl bg-blue-200 translate-x-[30%] translate-y-[80%] hover:bg-red-500'>Cancel</p>
+                <div className='col-span-2 row-3 '>
+                    <p className=' h-[30%] w-[30%] font-bold text-1xl flex items-center justify-center rounded-xl bg-blue-200 translate-x-[120%] translate-y-[120%] hover:bg-red-500'>Cancel</p>
                 </div>
             </div>
         </div>
