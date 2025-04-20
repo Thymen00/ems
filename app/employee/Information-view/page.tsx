@@ -1,133 +1,234 @@
 'use client'
 import { useState } from 'react';
 import Link from 'next/link';
-import { ChevronRight, ChevronDown, ChevronsDown, BadgeCheck } from "lucide-react"
+import { ChevronRight, ChevronDown, Check, ArrowLeft, Save, X } from "lucide-react";
 
 // Define a type for each dropdown item
 type DropdownItem = {
-    id: number;
-    title: string;
-    content: string;
+  id: number;
+  title: string;
+  content: string;
 };
 
 const DropdownComponent = () => {
   // State to track which dropdown is open (using ID), or null if none
-const [openDropdownId, setOpenDropdownId] = useState<number | null>(null);
+  const [openDropdownId, setOpenDropdownId] = useState<number | null>(null);
+  const [selectedData, setSelectedData] = useState<string | null>(null);
+  const [currentValue, setCurrentValue] = useState<string>("");
+  const [showDropdown, setShowDropdown] = useState(false);
 
   // Example dropdown items
-const dropdownItems: DropdownItem[] = [
+  const dropdownItems: DropdownItem[] = [
     {
-        id: 1,
-        title: "Information input",
-        content: "Add and input information as you wish."
+      id: 1,
+      title: "Information Input",
+      content: "Add and input information as you wish."
     },
     {
-        id: 2,
-        title: "Information edit",
-        content: "Edit personal data and information that is already in the system."
+      id: 2,
+      title: "Information Edit",
+      content: "Edit personal data and information that is already in the system."
     },
     {
-        id: 3,
-        title: "Attendance menu",
-        content: "At the start of your shift press present, at the end of your shift click leave."
+      id: 3,
+      title: "Attendance Menu",
+      content: "At the start of your shift press present, at the end of your shift click leave."
     },
     {
-        id: 4,
-        title: "Leave management",
-        content: "If the employee would like to leave for a longer period they have to get approval from the manager by requesting leave...."
+      id: 4,
+      title: "Leave Management",
+      content: "If the employee would like to leave for a longer period they have to get approval from the manager by requesting leave...."
     },
     {
-        id: 5,
-        title: "Salary",
-        content: "Used for easy calculating your salary and able to see the history salary."
+      id: 5,
+      title: "Salary",
+      content: "Used for easy calculating your salary and able to see the history salary."
     },
     {
-        id: 6,
-        title: "Information view",
-        content: "View all personal information and data"
+      id: 6,
+      title: "Information View",
+      content: "View all personal information and data"
     }
-];
+  ];
+
+  const dataOptions = [
+    "First and last name",
+    "E-mail",
+    "Phone number",
+    "Home address",
+    "Job role"
+  ];
 
   // Handler for clicking a dropdown bar
-const handleDropdownClick = (id: number) => {
+  const handleDropdownClick = (id: number) => {
     if (openDropdownId === id) {
-      // If clicking on already open dropdown, close it
-    setOpenDropdownId(null);
+      setOpenDropdownId(null);
     } else {
-      // Otherwise, open the clicked dropdown (and close any other)
-    setOpenDropdownId(id);
+      setOpenDropdownId(id);
     }
-};
+  };
 
-    return (
-        <div className='bg-blue-100 h-screen'>
-        <div className="grid grid-cols-[20%_80%] grid-rows-[12.5%_87.5%] w-[100%] h-[100%] ">
-            <div className=' flex col-span-2  border-b'>
-            <Link className='text-xl font-bold hover:shadow-xl/20 bg-blue-200 flex justify-center items-center p-5 rounded-xl h-15 w-30 mt-2.5 ml-2'
-                href="/employee">
-                Return to dashboard
-            </Link>
-            <p className='font-bold text-4xl flex justify-center items-center w-[100%]'>Edit information</p>
-            </div>
-            
-            <div className="grid col-1 row-2  bg-gradient-to-r from-slate-200 to-slate-300">
-            <p className=' font-bold text-2xl h-15 flex justify-center items-center underline'>Menu</p>
-            
-            {/* Map through dropdown items to create multiple independent dropdowns */}
-            {dropdownItems.map((item) => (
-                <div key={item.id}>
-                <div
-                    className="flex items-center  h-fit cursor-pointer"
-                    onClick={() => handleDropdownClick(item.id)}
-                >
-                    <div className="mr-2">
-                    {openDropdownId === item.id ? <ChevronDown size={20} /> : <ChevronRight size={20} />}
-                    </div>
-                    <span className="font-bold">{item.title}</span>
-                </div>
-                
-                {openDropdownId === item.id && (
-                    <div className=" border-t border-blue-400 h-fit p-3">
-                    <p>{item.content}</p>
-                    </div>
-                )}
-                </div>
-            ))}
-            </div>
-            
-            <div className="grid col-2 row-2 grid grid-cols-2 grid-rows-3 ">
-                <div className='grid col-1 row-span-2  grid-rows-6 grid-cols-1 ml-40'>
-                    <p className='row-1  font-bold flex items-end ml-5 text-2xl w-150'>Choose the data you wish to edit in the system</p>
-                    <p className='row-2  flex items-center rounded-xl w-[50%] p-5 h-10 ml-5 mt-3 text-lg bg-gray-300 gap-3 '>Please choose <ChevronsDown /></p>
-                    <div className='row-span-3 border-1 rounded-xl m-5 w-[70%] h-50 text-xl -mt-1 '>
-                        <ul className='list-disc pl-6 p-5 ml-5'>
-                            <li className='hover:underline'>First and last name</li>
-                            <li className='hover:underline'>E-mail</li>
-                            <li className='hover:underline'>Phone number</li>
-                            <li className='hover:underline'>Home address</li>
-                            <li className='hover:underline'>Job role</li>
-                        </ul>
-                    </div>
-                    <p className='row-6  ml-6 text-red-500'>Please select your data.</p>
-                </div>
-                <div className='grid col-2 row-1  grid-cols-1 grid-rows-[23%_23%_8%_23%_23%]'>
-                    <div className='h-25 w-[50%] mt-45 ml-20 rounded-xl bg-slate-100 '>
-                        <p className='col-1 row-2  flex items-end ml-2 font-bold'>Data already in system: </p>
-                        <p className='col-1 row-3  flex items-center ml-2'>-------</p>
-                        <p className='col-1 row-4 border-1 ml-2 flex items-center p-2 w-[80%] h-10 mt-1'>Data</p>
-                    </div>
-                </div>
-                
-                <div className='grid col-1 row-3 '>
-                    <p className=' h-[30%] w-[30%] font-bold text-2xl flex items-center justify-center rounded-xl bg-blue-200 translate-x-[130%] translate-y-[110%] hover:bg-blue-300'>Save data <BadgeCheck /></p>
-                </div>
-                <div className='grid col-2 row-3 '>
-                    <p className=' h-[30%] w-[30%] font-bold text-2xl flex items-center justify-center rounded-xl bg-blue-200 translate-x-[80%] translate-y-[110%] hover:bg-red-500'>Cancel</p>
-                </div>
-            </div>
-        </div>
-        </div>
-    )
+  const handleOptionSelect = (option: string) => {
+    setSelectedData(option);
+    setShowDropdown(false);
+    // Mock existing data based on selection
+    if (option === "First and last name") {
+      setCurrentValue("John Doe");
+    } else if (option === "E-mail") {
+      setCurrentValue("john.doe@example.com");
+    } else if (option === "Phone number") {
+      setCurrentValue("+1 (555) 123-4567");
+    } else if (option === "Home address") {
+      setCurrentValue("123 Main St, Anytown, USA");
+    } else if (option === "Job role") {
+      setCurrentValue("Software Developer");
     }
+  };
+  
+  return (
+    <div className="min-h-screen bg-slate-50">
+      {/* Header */}
+      <header className="bg-white shadow-md p-4">
+        <div className="container mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-6">
+            <Link 
+              href="/employee" 
+              className="flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium"
+            >
+              <ArrowLeft size={18} />
+              <span>Return to Dashboard</span>
+            </Link>
+            <h1 className="text-2xl font-bold text-gray-800">Edit Information</h1>
+          </div>
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center">
+              JD
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div className="container mx-auto mt-6 grid grid-cols-4 gap-6">
+        {/* Sidebar */}
+        <div className="col-span-1">
+          <div className="bg-white rounded-lg shadow-md overflow-hidden">
+            <div className="p-4 bg-blue-600 text-white">
+              <h2 className="font-semibold text-lg">Menu</h2>
+            </div>
+            <div className="divide-y divide-gray-200">
+              {dropdownItems.map((item) => (
+                <div key={item.id} className="overflow-hidden">
+                  <div
+                    className={`flex items-center p-4 cursor-pointer hover:bg-gray-50 ${openDropdownId === item.id ? 'bg-blue-50' : ''}`}
+                    onClick={() => handleDropdownClick(item.id)}
+                  >
+                    <div className="mr-2 text-blue-600">
+                      {openDropdownId === item.id ? <ChevronDown size={18} /> : <ChevronRight size={18} />}
+                    </div>
+                    <span className={`${openDropdownId === item.id ? 'font-medium text-blue-700' : 'text-gray-700'}`}>{item.title}</span>
+                  </div>
+                  
+                  {openDropdownId === item.id && (
+                    <div className="bg-gray-50 px-6 py-3 text-sm text-gray-600 border-l-4 border-blue-500">
+                      <p>{item.content}</p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="col-span-3">
+          <div className="bg-white rounded-lg shadow-md p-6">
+            <h2 className="text-xl font-semibold text-gray-800 mb-6">Edit Your Information</h2>
+            
+            <div className="mb-8">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Select information to edit
+              </label>
+              <div className="relative">
+                <button 
+                  className="w-full flex justify-between items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-50"
+                  onClick={() => setShowDropdown(!showDropdown)}
+                >
+                  {selectedData || "Choose data to edit"}
+                  <ChevronDown size={18} className="text-gray-400" />
+                </button>
+                
+                {showDropdown && (
+                  <div className="absolute w-full mt-1 bg-white border border-gray-200 rounded-md shadow-lg z-10">
+                    <ul className="py-1 max-h-60 overflow-auto">
+                      {dataOptions.map((option, index) => (
+                        <li 
+                          key={index} 
+                          className="px-4 py-2 hover:bg-blue-50 cursor-pointer flex items-center text-gray-700"
+                          onClick={() => handleOptionSelect(option)}
+                        >
+                          {selectedData === option && (
+                            <Check size={16} className="mr-2 text-blue-600" />
+                          )}
+                          <span className={selectedData === option ? "font-medium" : ""}>
+                            {option}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+              
+              {!selectedData && (
+                <p className="mt-2 text-sm text-red-500">Please select data to edit</p>
+              )}
+            </div>
+            
+            {selectedData && (
+              <div className="mb-8">
+                <h3 className="text-lg font-medium text-gray-800 mb-4">
+                  Editing: {selectedData}
+                </h3>
+                
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Current value:
+                    </label>
+                    <div className="px-4 py-2 bg-gray-100 text-gray-700 rounded-md">
+                      {currentValue}
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      New value:
+                    </label>
+                    <input 
+                      type="text" 
+                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                      placeholder="Enter new value"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+            
+            <div className="flex justify-end gap-4 mt-6">
+              <button className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 flex items-center gap-2">
+                <X size={18} />
+                Cancel
+              </button>
+              <button className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 flex items-center gap-2">
+                <Save size={18} />
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default DropdownComponent;

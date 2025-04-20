@@ -28,7 +28,11 @@ const nextConfig: NextConfig = {
         hostname: 'cdn4.iconfinder.com',
         pathname: '/**',
       },
-      
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        pathname: '/**',
+      },
     ],
   },
 };

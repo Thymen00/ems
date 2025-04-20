@@ -1,8 +1,9 @@
 'use client'
 import { useState } from 'react';
 import Link from 'next/link';
-import { ChevronRight, ChevronDown, ChevronsDown } from "lucide-react"
+import { ChevronRight, ChevronDown,  ArrowLeft, Clock, Save, XCircle } from "lucide-react"
 import Image from 'next/image'
+
 // Define a type for each dropdown item
 type DropdownItem = {
     id: number;
@@ -12,28 +13,29 @@ type DropdownItem = {
 
 const DropdownComponent = () => {
   // State to track which dropdown is open (using ID), or null if none
-const [openDropdownId, setOpenDropdownId] = useState<number | null>(null);
+  const [openDropdownId, setOpenDropdownId] = useState<number | null>(null);
+  const [attendanceStatus, setAttendanceStatus] = useState<string | null>(null);
 
   // Example dropdown items
-const dropdownItems: DropdownItem[] = [
+  const dropdownItems: DropdownItem[] = [
     {
         id: 1,
-        title: "Information input",
+        title: "Information Input",
         content: "Add and input information as you wish."
     },
     {
         id: 2,
-        title: "Information edit",
+        title: "Information Edit",
         content: "Edit personal data and information that is already in the system."
     },
     {
         id: 3,
-        title: "Attendance menu",
+        title: "Attendance Menu",
         content: "At the start of your shift press present, at the end of your shift click leave."
     },
     {
         id: 4,
-        title: "Leave management",
+        title: "Leave Management",
         content: "If the employee would like to leave for a longer period they have to get approval from the manager by requesting leave...."
     },
     {
@@ -43,112 +45,190 @@ const dropdownItems: DropdownItem[] = [
     },
     {
         id: 6,
-        title: "Information view",
+        title: "Information View",
         content: "View all personal information and data"
     }
-];
+  ];
 
   // Handler for clicking a dropdown bar
-const handleDropdownClick = (id: number) => {
+  const handleDropdownClick = (id: number) => {
     if (openDropdownId === id) {
       // If clicking on already open dropdown, close it
-    setOpenDropdownId(null);
+      setOpenDropdownId(null);
     } else {
       // Otherwise, open the clicked dropdown (and close any other)
-    setOpenDropdownId(id);
+      setOpenDropdownId(id);
     }
-};
+  };
 
-    return (
-    <div className='bg-blue-100 h-screen'>
-        <div className="grid grid-cols-[20%_80%] grid-rows-[12.5%_87.5%] w-[100%] h-[100%] ">
-            <div className=' flex col-span-2  border-b'>
-            <Link className='text-xl font-bold hover:shadow-xl/20 bg-blue-200 flex justify-center items-center p-5 rounded-xl h-15 w-30 mt-2.5 ml-2'
-                href="/employee">
-                Return to dashboard
-            </Link>
-            <p className='font-bold text-4xl flex justify-center items-center w-[100%]'>Attendance dashboard</p>
-            </div>
-            
-            <div className="grid col-1 row-2  bg-gradient-to-r from-slate-200 to-slate-300">
-            <p className=' font-bold text-2xl h-15 flex justify-center items-center underline'>Menu</p>
-            
-            {/* Map through dropdown items to create multiple independent dropdowns */}
+  const selectAttendanceStatus = (status: string) => {
+    setAttendanceStatus(status);
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+      {/* Header */}
+      <header className="bg-white shadow-md py-4 px-6 flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <Link 
+            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            href="/employee"
+          >
+            <ArrowLeft size={18} />
+            <span>Dashboard</span>
+          </Link>
+          <h1 className="text-2xl font-bold text-gray-800">Attendance Dashboard</h1>
+        </div>
+        <div className="flex items-center gap-3">
+          <div className="bg-blue-100 px-3 py-1 rounded-full text-blue-800 text-sm">
+            <Clock size={16} className="inline mr-1" />
+            {new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+          </div>
+        </div>
+      </header>
+
+      <div className="container mx-auto mt-6 grid grid-cols-12 gap-6 px-4">
+        {/* Sidebar */}
+        <aside className="col-span-3 bg-white rounded-xl shadow-lg overflow-hidden">
+          <div className="p-4 bg-blue-600 text-white">
+            <h2 className="text-xl font-semibold">Navigation Menu</h2>
+          </div>
+          <nav className="p-2">
             {dropdownItems.map((item) => (
-                <div key={item.id}>
+              <div key={item.id} className="mb-1">
                 <div
-                    className="flex items-center  h-fit cursor-pointer"
-                    onClick={() => handleDropdownClick(item.id)}
+                  className={`flex items-center p-3 rounded-lg cursor-pointer hover:bg-blue-50 transition-colors ${openDropdownId === item.id ? 'bg-blue-50' : ''}`}
+                  onClick={() => handleDropdownClick(item.id)}
                 >
-                    <div className="mr-2">
-                    {openDropdownId === item.id ? <ChevronDown size={20} /> : <ChevronRight size={20} />}
-                    </div>
-                    <span className="font-bold">{item.title}</span>
+                  <div className="mr-2 text-blue-600">
+                    {openDropdownId === item.id ? <ChevronDown size={18} /> : <ChevronRight size={18} />}
+                  </div>
+                  <span className={`${openDropdownId === item.id ? 'font-medium text-blue-700' : 'text-gray-700'}`}>
+                    {item.title}
+                  </span>
                 </div>
                 
                 {openDropdownId === item.id && (
-                    <div className=" border-t border-blue-400 h-fit p-3">
+                  <div className="ml-6 pl-3 border-l-2 border-blue-200 text-gray-600 py-2 pr-2 text-sm">
                     <p>{item.content}</p>
-                    </div>
+                  </div>
                 )}
-                </div>
+              </div>
             ))}
+          </nav>
+        </aside>
+
+        {/* Main Content */}
+        <main className="col-span-9 grid grid-cols-2 gap-6">
+          {/* Face ID Section */}
+          <div className="bg-white p-6 rounded-xl shadow-lg flex flex-col items-center">
+            <h2 className="text-xl font-bold mb-2 text-gray-800">Face ID Verification</h2>
+            <p className="text-red-500 text-sm mb-6">Please scan your face to record attendance</p>
+            
+            <div className="relative w-64 h-64 mb-8 bg-blue-50 rounded-xl flex items-center justify-center border-2 border-dashed border-blue-300">
+              <Image
+                className="object-contain"
+                src="https://cdn4.iconfinder.com/data/icons/face-id/500/face-id-authentication-facial_2-512.png"
+                width={200}
+                height={200}
+                alt="Face scan"
+              />
+              <div className="absolute inset-0 bg-blue-400 bg-opacity-20 animate-pulse rounded-xl"></div>
             </div>
             
-            <div className='grid col-2 row-2 grid-cols-2 grid-rows-6'>
-                <div className='col-1 row-1  '>
-                    <div className=' w-[60%] translate-x-[60%] translate-y-[70%] '>
-                        <p className='font-bold  ml-13 '>Face ID</p>
-                        <p className='text-red-500 text-sm '>Please scan your face ID</p>
-                    </div>    
-                </div>
-                <div className='col-1 row-span-3 '>
-                    <div className='flex items-center justify-center'>
-                        <Image
-                            className='m-5 ml-8'
-                            src="https://cdn4.iconfinder.com/data/icons/face-id/500/face-id-authentication-facial_2-512.png"
-                            width={250}
-                            height={250}
-                            alt="Face scan"
-                        />
-                    </div>    
-                </div>
-                <div className='col-1 row-5 '>
-                    <div className=' w-[60%] translate-x-[63%] translate-y-[20%] '>
-                        <p className='font-bold ml-5'>Scan face again</p>
-                        <p className='text-red-500 text-sm '>Please scan your face ID</p>
-                    </div> 
-                </div>
-                <div className='col-1 row-6 '>
-                    <p className=' h-[50%] w-[50%] font-bold text-2xl flex items-center justify-center rounded-xl bg-blue-200 translate-x-[50%] translate-y-[50%] hover:bg-blue-300'>Save</p>
-                </div>
-                
-                <div className='col-2 row-span-3 row-start-1 row-end-4   '>
-                    <div className='grid-rows-3 grid-cols-1 h-[100%] translate-x-[80%] translate-y-[30%] w-60'>
-                        <div className=' col-1 row-1  flex items-center rounded-xl w-[100%] p-5 h-10 text-lg bg-gray-300 gap-3 '>Please choose <ChevronsDown /></div>
-                        <div className=' col-1 row-2 bg-indigo-200 hover:inset-shadow-sm inset-shadow-indigo-500/50 flex items-center rounded-xl w-[100%] p-5 h-10 text-lg bg-gray-300 gap-3 mt-10 '>Present</div>
-                        <div className=' col-1 row-3 bg-indigo-200 hover:inset-shadow-sm inset-shadow-indigo-500/50 flex items-center rounded-xl w-[100%] p-5 h-10 text-lg bg-gray-300 mt-5'>Leave</div>
-                    </div>
-                </div>
-                <div className='col-2 row-span-2  '>
-                <div className=' rounded-xl h-40 p-4 shadow-lg'>
-                    <div className='font-bold text-sm  w-45 h-[100%] flex items-center border-r text-center p-4'>The time of present and the time of leave will automatically be entered in the system after scanning the users face</div>
-                        <div className='grid-rows-2 grid-cols-1 h-[100%] translate-x-[85%] translate-y-[-60%] w-60 -mt-10 '>
-                            
-                            <div className=' col-1 row-1  flex items-center  w-[100%] p-5 h-10 text-lg bg-gray-200 gap-3  '>Time of enter:</div>
-                            <div className=' col-1 row-2  flex items-center  w-[100%] p-5 h-10 text-lg bg-gray-200 mt-5'>Time of leave:</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div className='col-2 row-6 '>
-                    <p className=' h-[50%] w-[50%] font-bold text-2xl flex items-center justify-center rounded-xl bg-blue-200 translate-x-[50%] translate-y-[50%] hover:bg-red-500'>Cancel</p>
-                </div>
+            <button className="flex items-center gap-2 bg-blue-100 hover:bg-blue-200 text-blue-800 px-4 py-2 rounded-lg transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10H5zm6 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/>
+              </svg>
+              Scan Face Again
+            </button>
+          </div>
 
+          {/* Attendance Selection */}
+          <div className="bg-white p-6 rounded-xl shadow-lg flex flex-col">
+            <h2 className="text-xl font-bold mb-4 text-gray-800">Record Attendance</h2>
+            
+            <div className="bg-gray-50 p-4 rounded-lg mb-6">
+              <p className="text-gray-600 mb-4">Please select your attendance status:</p>
+              
+              <div className="space-y-3">
+                <button 
+                  onClick={() => selectAttendanceStatus('present')}
+                  className={`w-full p-3 rounded-lg flex items-center justify-between transition-all
+                    ${attendanceStatus === 'present' 
+                      ? 'bg-green-600 text-white shadow-md' 
+                      : 'bg-gray-100 hover:bg-gray-200 text-gray-700'}`}
+                >
+                  <span className="font-medium">Present</span>
+                  {attendanceStatus === 'present' && (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                      <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                    </svg>
+                  )}
+                </button>
+                
+                <button 
+                  onClick={() => selectAttendanceStatus('leave')}
+                  className={`w-full p-3 rounded-lg flex items-center justify-between transition-all
+                    ${attendanceStatus === 'leave' 
+                      ? 'bg-orange-600 text-white shadow-md' 
+                      : 'bg-gray-100 hover:bg-gray-200 text-gray-700'}`}
+                >
+                  <span className="font-medium">Leave</span>
+                  {attendanceStatus === 'leave' && (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                      <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                    </svg>
+                  )}
+                </button>
+              </div>
             </div>
-        </div>
+            
+            <div className="bg-blue-50 rounded-lg p-4 flex-grow">
+              <h3 className="font-semibold text-blue-800 mb-3">Today's Records</h3>
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">Time of entry:</span>
+                  <span className="font-mono bg-white px-3 py-1 rounded border border-blue-100">
+                    {attendanceStatus === 'present' ? '09:15 AM' : '-- : --'}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">Time of leave:</span>
+                  <span className="font-mono bg-white px-3 py-1 rounded border border-blue-100">
+                    {attendanceStatus === 'leave' ? '05:30 PM' : '-- : --'}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Information Box */}
+          <div className="col-span-2 bg-white p-6 rounded-xl shadow-lg">
+            <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-lg">
+              <h3 className="text-lg font-medium text-yellow-800 mb-2">Important Information</h3>
+              <p className="text-gray-700">
+                The time of entry and departure will be automatically recorded in the system after successful face identification. 
+                Please ensure that you are directly facing the camera when scanning.
+              </p>
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="col-span-2 flex justify-center gap-4">
+            <button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg shadow-md transition-colors">
+              <Save size={18} />
+              <span>Save Record</span>
+            </button>
+            <button className="flex items-center gap-2 bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-lg shadow-md transition-colors">
+              <XCircle size={18} />
+              <span>Cancel</span>
+            </button>
+          </div>
+        </main>
+      </div>
     </div>
-    )
+  )
 }
 
 export default DropdownComponent;

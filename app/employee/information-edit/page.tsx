@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react';
 import Link from 'next/link';
-import { ChevronRight, ChevronDown, ChevronsDown, BadgeCheck } from "lucide-react"
+import { ChevronRight, ChevronDown, ChevronsDown, ArrowLeft, Save, XCircle, PenLine, BadgeCheck } from "lucide-react"
 
 // Define a type for each dropdown item
 type DropdownItem = {
@@ -12,28 +12,31 @@ type DropdownItem = {
 
 const DropdownComponent = () => {
   // State to track which dropdown is open (using ID), or null if none
-const [openDropdownId, setOpenDropdownId] = useState<number | null>(null);
+  const [openDropdownId, setOpenDropdownId] = useState<number | null>(null);
+  const [selectedDataType, setSelectedDataType] = useState<string | null>(null);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [currentData, setCurrentData] = useState("-------");
 
   // Example dropdown items
-const dropdownItems: DropdownItem[] = [
+  const dropdownItems: DropdownItem[] = [
     {
         id: 1,
-        title: "Information input",
+        title: "Information Input",
         content: "Add and input information as you wish."
     },
     {
         id: 2,
-        title: "Information edit",
+        title: "Information Edit",
         content: "Edit personal data and information that is already in the system."
     },
     {
         id: 3,
-        title: "Attendance menu",
+        title: "Attendance Menu",
         content: "At the start of your shift press present, at the end of your shift click leave."
     },
     {
         id: 4,
-        title: "Leave management",
+        title: "Leave Management",
         content: "If the employee would like to leave for a longer period they have to get approval from the manager by requesting leave...."
     },
     {
@@ -43,101 +46,193 @@ const dropdownItems: DropdownItem[] = [
     },
     {
         id: 6,
-        title: "Information view",
+        title: "Information View",
         content: "View all personal information and data"
     }
-];
+  ];
+
+  const dataItems = [
+    "First and last name",
+    "E-mail",
+    "Phone number",
+    "Home address",
+    "Job role"
+  ];
 
   // Handler for clicking a dropdown bar
-const handleDropdownClick = (id: number) => {
+  const handleDropdownClick = (id: number) => {
     if (openDropdownId === id) {
       // If clicking on already open dropdown, close it
-    setOpenDropdownId(null);
+      setOpenDropdownId(null);
     } else {
       // Otherwise, open the clicked dropdown (and close any other)
-    setOpenDropdownId(id);
+      setOpenDropdownId(id);
     }
-};
+  };
 
-    return (
-        <div className='bg-blue-100 h-screen'>
-        <div className="grid grid-cols-[20%_80%] grid-rows-[12.5%_87.5%] w-[100%] h-[100%] ">
-            <div className=' flex col-span-2  border-b'>
-            <Link className='text-xl font-bold hover:shadow-xl/20 bg-blue-200 flex justify-center items-center p-5 rounded-xl h-15 w-30 mt-2.5 ml-2'
-                href="/employee">
-                Return to dashboard
-            </Link>
-            <p className='font-bold text-4xl flex justify-center items-center w-[100%]'>Edit information</p>
-            </div>
-            
-            <div className="grid col-1 row-2  bg-gradient-to-r from-slate-200 to-slate-300">
-            <p className=' font-bold text-2xl h-15 flex justify-center items-center underline'>Menu</p>
-            
-            {/* Map through dropdown items to create multiple independent dropdowns */}
+  const handleDataTypeSelect = (dataType: string) => {
+    setSelectedDataType(dataType);
+    setShowDropdown(false);
+    
+    // Set some sample data based on selection
+    const sampleData: {[key: string]: string} = {
+      "First and last name": "John Doe",
+      "E-mail": "john.doe@company.com",
+      "Phone number": "+1 (555) 123-4567",
+      "Home address": "123 Main Street, Anytown, AN 12345",
+      "Job role": "Senior Developer"
+    };
+    
+    setCurrentData(sampleData[dataType] || "-------");
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+      {/* Header */}
+      <header className="bg-white shadow-md py-4 px-6 flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <Link 
+            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            href="/employee"
+          >
+            <ArrowLeft size={18} />
+            <span>Dashboard</span>
+          </Link>
+          <h1 className="text-2xl font-bold text-gray-800">Edit Information</h1>
+        </div>
+        <div className="flex items-center gap-3">
+          <div className="bg-blue-100 px-3 py-1 rounded-full text-blue-800 text-sm">
+            <PenLine size={16} className="inline mr-1" />
+            Edit Mode
+          </div>
+        </div>
+      </header>
+
+      <div className="container mx-auto mt-6 grid grid-cols-12 gap-6 px-4">
+        {/* Sidebar */}
+        <aside className="col-span-3 bg-white rounded-xl shadow-lg overflow-hidden">
+          <div className="p-4 bg-blue-600 text-white">
+            <h2 className="text-xl font-semibold">Navigation Menu</h2>
+          </div>
+          <nav className="p-2">
             {dropdownItems.map((item) => (
-                <div key={item.id}>
+              <div key={item.id} className="mb-1">
                 <div
-                    className="flex items-center  h-fit cursor-pointer"
-                    onClick={() => handleDropdownClick(item.id)}
+                  className={`flex items-center p-3 rounded-lg cursor-pointer hover:bg-blue-50 transition-colors ${openDropdownId === item.id ? 'bg-blue-50' : ''}`}
+                  onClick={() => handleDropdownClick(item.id)}
                 >
-                    <div className="mr-2">
-                    {openDropdownId === item.id ? <ChevronDown size={20} /> : <ChevronRight size={20} />}
-                    </div>
-                    <span className="font-bold">{item.title}</span>
+                  <div className="mr-2 text-blue-600">
+                    {openDropdownId === item.id ? <ChevronDown size={18} /> : <ChevronRight size={18} />}
+                  </div>
+                  <span className={`${openDropdownId === item.id ? 'font-medium text-blue-700' : 'text-gray-700'}`}>
+                    {item.title}
+                  </span>
                 </div>
                 
                 {openDropdownId === item.id && (
-                    <div className=" border-t border-blue-400 h-fit p-3">
+                  <div className="ml-6 pl-3 border-l-2 border-blue-200 text-gray-600 py-2 pr-2 text-sm">
                     <p>{item.content}</p>
-                    </div>
+                  </div>
                 )}
-                </div>
+              </div>
             ))}
+          </nav>
+        </aside>
+
+        {/* Main Content */}
+        <main className="col-span-9">
+          {/* Data Selection Section */}
+          <div className="bg-white p-6 rounded-xl shadow-lg mb-6">
+            <h2 className="text-xl font-semibold mb-6 text-gray-800">Choose the data you wish to edit</h2>
+            
+            <div className="relative mb-6">
+              <button 
+                onClick={() => setShowDropdown(!showDropdown)}
+                className="flex items-center justify-between w-full md:w-1/2 p-3 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+              >
+                <span className="text-gray-700">
+                  {selectedDataType || "Please select data type"}
+                </span>
+                <ChevronsDown size={18} className="text-gray-500" />
+              </button>
+              
+              {showDropdown && (
+                <div className="absolute z-10 mt-1 w-full md:w-1/2 bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden">
+                  <ul className="py-1">
+                    {dataItems.map((item, index) => (
+                      <li 
+                        key={index}
+                        className="px-4 py-2 hover:bg-blue-50 cursor-pointer transition-colors text-gray-700"
+                        onClick={() => handleDataTypeSelect(item)}
+                      >
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
             
-            <div className="grid col-2 row-2 grid grid-cols-2 grid-rows-3 ">
-                <div className='grid col-1 row-span-2  grid-rows-6 grid-cols-1 ml-40'>
-                    <p className='row-1  font-bold flex items-end ml-5 text-2xl w-150'>Choose the data you wish to edit in the system</p>
-                    <p className='row-2  flex items-center rounded-xl w-[50%] p-5 h-10 ml-5 mt-3 text-lg bg-gray-300 gap-3 '>Please choose <ChevronsDown /></p>
-                    <div className='row-span-3 border-1 rounded-xl m-5 w-[70%] h-50 text-xl -mt-1 '>
-                        <ul className='list-disc pl-6 p-5 ml-5'>
-                            <li className='hover:underline'>First and last name</li>
-                            <li className='hover:underline'>E-mail</li>
-                            <li className='hover:underline'>Phone number</li>
-                            <li className='hover:underline'>Home address</li>
-                            <li className='hover:underline'>Job role</li>
-                        </ul>
-                    </div>
-                    <p className='row-6  ml-6 text-red-500'>Please select your data.</p>
-                </div>
-                <div className='grid col-2 row-1  grid-cols-1 grid-rows-[23%_23%_8%_23%_23%]'>
-                    <div className='h-25 w-[50%] mt-30 ml-20 rounded-xl bg-slate-100 '>
-                        <p className='col-1 row-2  flex items-end ml-2 font-bold'>Data already in system: </p>
-                        <p className='col-1 row-3  flex items-center ml-2'>-------</p>
-                        <p className='col-1 row-4 border-1 ml-2 flex items-center p-2 w-[80%] h-10 mt-1'>Data</p>
-                    </div>
-                </div>
-                <div className='grid col-2 row-2  grid-cols-1 grid-rows-[23%_23%_23%_8%_23%]'>
-                    <div className='h-25 w-[50%]  ml-20 rounded-xl bg-slate-100 mt-10'>
-                        <p className='col-1 row-2  flex items-end ml-2 font-bold '>Edit the data selected: </p>
-                        <input
-                            placeholder="Data"
-                            className="col-1 row-3  ml-2 flex items-center p-2 w-[80%] h-10 mt-1 border-1"
-                        />
-                        <p className='col-1 row-4  flex  ml-2 text-red-500 text-sm '>Please input your data</p>
-                        
-                    </div>
-                </div>
-                <div className='grid col-1 row-3 '>
-                    <p className=' h-[30%] w-[30%] font-bold text-2xl flex items-center justify-center rounded-xl bg-blue-200 translate-x-[130%] translate-y-[110%] hover:bg-blue-300'>Save data <BadgeCheck /></p>
-                </div>
-                <div className='grid col-2 row-3 '>
-                    <p className=' h-[30%] w-[30%] font-bold text-2xl flex items-center justify-center rounded-xl bg-blue-200 translate-x-[80%] translate-y-[110%] hover:bg-red-500'>Cancel</p>
-                </div>
+            {!selectedDataType && (
+              <p className="text-red-500 text-sm">Please select the data you wish to edit</p>
+            )}
+          </div>
+          
+          {/* Current and Edit Data Section */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Current Data */}
+            <div className="bg-white p-6 rounded-xl shadow-lg">
+              <h3 className="text-lg font-semibold mb-4 text-gray-800">Data already in system</h3>
+              
+              <div className="mb-2 text-sm text-gray-500">Current value:</div>
+              <div className="p-4 bg-gray-50 rounded-lg border border-gray-200 min-h-16 flex items-center">
+                {currentData}
+              </div>
             </div>
-        </div>
-        </div>
-    )
-    }
+            
+            {/* Edit Data */}
+            <div className="bg-white p-6 rounded-xl shadow-lg">
+              <h3 className="text-lg font-semibold mb-4 text-gray-800">Edit the selected data</h3>
+              
+              <div className="mb-2 text-sm text-gray-500">New value:</div>
+              <input
+                type="text"
+                placeholder="Enter new data"
+                defaultValue={selectedDataType ? currentData : ""}
+                className="w-full p-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+              />
+              
+              {selectedDataType && (
+                <p className="mt-2 text-sm text-gray-500">
+                  Editing: <span className="font-medium text-blue-600">{selectedDataType}</span>
+                </p>
+              )}
+              {!selectedDataType && (
+                <p className="mt-2 text-sm text-red-500">
+                  Please select data type first
+                </p>
+              )}
+            </div>
+          </div>
+          
+          {/* Action Buttons */}
+          <div className="flex justify-center gap-4 mt-6">
+            <button 
+              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg shadow-md transition-colors"
+              disabled={!selectedDataType}
+            >
+              <BadgeCheck size={18} />
+              <span>Save Changes</span>
+            </button>
+            <button className="flex items-center gap-2 bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-lg shadow-md transition-colors">
+              <XCircle size={18} />
+              <span>Cancel</span>
+            </button>
+          </div>
+        </main>
+      </div>
+    </div>
+  )
+}
 
 export default DropdownComponent;

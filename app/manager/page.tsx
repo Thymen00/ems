@@ -1,140 +1,177 @@
+'use client'
+
 import Image from 'next/image'
-import { ArrowRight }from "lucide-react"
-import Link from 'next/link';
+import { ArrowRight, Home, User, Calendar, DollarSign, FileText, Menu, X, LogOut } from "lucide-react"
+import Link from 'next/link'
+import { useState } from 'react'
 
-export default function manager () {
-    return(
-        <div className="bg-gradient-to-r from-teal-200 to-teal-500 h-screen">
-            <div className='bg-blue-300 h-20 flex '>
-                <Link className='text-xl font-bold hover:shadow-xl/20 bg-blue-200 flex justify-center items-center p-5 rounded-xl h-15 w-20 mt-2.5 ml-2'
-                        href="/#">
-                                Home
-                </Link>
-                <p className='font-bold text-4xl flex justify-center items-center w-[100%]'>Manager dashboard</p>
-                
-            </div>
-            <div className=" w-[90%] h-[80%] translate-x-[6%] translate-y-[6%] grid grid-rows-2 grid-cols-2">
+export default function Manager() {
+  const [sidebarOpen, setSidebarOpen] = useState(true)
 
-                
-                {/* 3 */}
-                <div className=" row-1 col-1 rounded-xl m-5 grid grid-rows-2 grid-cols-2 bg-yellow-50 shadow-md ">
-                    <div className='col-1 row-1  ml-5'>
-                        <Image
-                            className='m-5 ml-8'
-                            src="https://icons.veryicon.com/png/o/miscellaneous/effevo/attendance-1.png"
-                            width={150}
-                            height={150}
-                            alt="Icon"
-                        />
-                    </div>
-
-                    <div className='col-1 row-2  flex justify-center items-center mt-8 font-bold text-xl '> Attendance view</div>
-                    
-
-                    <div className="col-2 row-1  w-60 text-xl flex flex-wrap items-center h-20 mt-12 ml-10 font-bold ">
-                        <ul className='list-disc pl-6'>
-                            <li>Get an overview on the attendance of your employees</li>
-                        </ul>
-                    </div>
-                    <div className=' col-2 row-2 relative '>
-                        <div className=' border-2 flex justify-center items-center gap-2 rounded-xl w-30 h-15 p-3 absolute bottom-5 right-5 font-bold hover:underline decoration-sky-500'>
-                            <p>Next</p>
-                            <p><ArrowRight /></p>
-                        </div>
-                    </div>
-                </div>
-
-                {/* 4 */}
-                <div className=" row-1 col-2 rounded-xl m-5 grid grid-rows-2 grid-cols-2 bg-yellow-50 shadow-md ">
-                    <div className='col-1 row-1  ml-15'>
-                        <Image
-                            className='m-5 ml-8'
-                            src="https://static.thenounproject.com/png/144676-200.png"
-                            width={150}
-                            height={150}
-                            alt="Icon"
-                        />
-                    </div>
-
-                    <div className='col-1 row-2 flex justify-center items-center mt-8 font-bold text-xl '> Leave management</div>
-                    
-
-                    <div className="col-2 row-1  w-60 flex flex-wrap items-center h-20 mt-12 ml-10 font-bold  text-xl">
-                        <ul className='list-disc pl-6'>
-                            <li>Approve or disapprove an employees leave date</li>
-                        </ul>
-                    </div>
-                    <div className=' col-2 row-2 relative '>
-                        <div className=' border-2 flex justify-center items-center gap-2 rounded-xl w-30 h-15 p-3 absolute bottom-5 right-5 font-bold hover:underline decoration-sky-500'>
-                            <p>Next</p>
-                            <p><ArrowRight /></p>
-                        </div>
-                    </div>
-                </div>
-
-
-                {/* 5 */}
-                <div className=" row-2 col-1 rounded-xl m-5 grid grid-rows-2 grid-cols-2 bg-yellow-50 shadow-md ">
-                    <div className='col-1 row-1  ml-15'>
-                        <Image
-                            className='m-5 ml-8'
-                            src="https://cdn-icons-png.flaticon.com/512/5525/5525464.png"
-                            width={150}
-                            height={150}
-                            alt="Icon"
-                        />
-                    </div>
-
-                    <div className='col-1 row-2  flex justify-center items-center mt-8 font-bold text-xl '> Salary</div>
-                    
-
-                    <div className="col-2 row-1  w-60 flex flex-wrap items-center h-20 mt-12 ml-10 font-bold  text-xl">
-                        <ul className='list-disc pl-6'>
-                            <li>An overview on previous salaries </li>
-                            <li>Easy salary calculator</li>
-                        </ul>
-                    </div>
-                    <div className=' col-2 row-2 relative '>
-                        <div className=' border-2 flex justify-center items-center gap-2 rounded-xl w-30 h-15 p-3 absolute bottom-5 right-5 font-bold hover:underline decoration-sky-500'>
-                            <p>Next</p>
-                            <p><ArrowRight /></p>
-                        </div>
-                    </div>
-                </div>
-
-
-                {/* 6 */}
-                <div className=" row-2 col-2 rounded-xl m-5 grid grid-rows-2 grid-cols-2 bg-yellow-50 shadow-md ">
-                    <div className='col-1 row-1 m-2  ml-15'>
-                        <Image
-                            className='m-5 ml-8'
-                            src="https://cdn-icons-png.flaticon.com/512/1/1755.png"
-                            width={150}
-                            height={150}
-                            alt="Icon"
-                        />
-                    </div>
-
-                    <div className='col-1 row-2  flex justify-center items-center mt-8 font-bold text-xl '> Information view</div>
-                    
-
-                    <div className="col-2 row-1  w-60 flex flex-wrap items-center h-20 mt-12 ml-10 font-bold  text-xl">
-                        <ul className='list-disc pl-6'>
-                            <li>View all personal data and information </li>
-                            
-                        </ul>
-                    </div>
-                    <div className=' col-2 row-2 relative '>
-                        <div className=' border-2 flex justify-center items-center gap-2 rounded-xl w-30 h-15 p-3 absolute bottom-5 right-5 font-bold hover:underline decoration-sky-500'>
-                            <p>Next</p>
-                            <p><ArrowRight /></p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-
+  return (
+    <div className="flex h-screen bg-gray-100">
+      {/* Sidebar */}
+      <div className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-blue-800 text-white transition-all duration-300 flex flex-col`}>
+        <div className="flex items-center justify-between p-4 border-b border-blue-700">
+          {sidebarOpen && <h2 className="text-xl font-bold">EMS System</h2>}
+          <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2 rounded-md hover:bg-blue-700">
+            {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </div>
-    )
+
+        <div className="flex flex-col flex-grow p-4 space-y-4">
+          <Link href="/" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-700 transition-colors">
+            <Home size={22} />
+            {sidebarOpen && <span>Home</span>}
+          </Link>
+          
+          <Link href="#" className="flex items-center space-x-3 p-3 rounded-lg bg-blue-700 transition-colors">
+            <User size={22} />
+            {sidebarOpen && <span>Dashboard</span>}
+          </Link>
+          
+          <Link href="#" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-700 transition-colors">
+            <Calendar size={22} />
+            {sidebarOpen && <span>Attendance</span>}
+          </Link>
+          
+          <Link href="#" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-700 transition-colors">
+            <DollarSign size={22} />
+            {sidebarOpen && <span>Payroll</span>}
+          </Link>
+          
+          <Link href="#" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-700 transition-colors">
+            <FileText size={22} />
+            {sidebarOpen && <span>Reports</span>}
+          </Link>
+        </div>
+        
+        <div className="p-4 border-t border-blue-700">
+          <Link href="/" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-700 transition-colors">
+            <LogOut size={22} />
+            {sidebarOpen && <span>Logout</span>}
+          </Link>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col overflow-hidden">
+        {/* Top Navigation */}
+        <header className="bg-white shadow">
+          <div className="px-6 py-4 flex items-center justify-between">
+            <h1 className="text-2xl font-bold text-gray-800">Manager Dashboard</h1>
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2">
+                <div className="w-10 h-10 rounded-full bg-blue-800 flex items-center justify-center text-white">
+                  <span className="font-bold">JD</span>
+                </div>
+                <span className="font-medium">John Doe</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        {/* Dashboard Content */}
+        <main className="flex-1 overflow-y-auto p-6 bg-gray-100">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Attendance View Card */}
+            <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+              <div className="flex p-6">
+                <div className="flex-shrink-0 flex items-center justify-center w-16 h-16 bg-blue-100 rounded-lg">
+                  <Image
+                    src="https://icons.veryicon.com/png/o/miscellaneous/effevo/attendance-1.png"
+                    width={40}
+                    height={40}
+                    alt="Attendance Icon"
+                  />
+                </div>
+                <div className="ml-6">
+                  <h3 className="text-xl font-semibold text-gray-800">Attendance View</h3>
+                  <p className="mt-2 text-gray-600">Get an overview on the attendance of your employees</p>
+                </div>
+              </div>
+              <div className="px-6 py-4 bg-gray-50 border-t border-gray-100">
+                <Link href="#" className="flex items-center justify-between text-blue-600 hover:text-blue-800 font-medium">
+                  <span>View details</span>
+                  <ArrowRight size={16} />
+                </Link>
+              </div>
+            </div>
+
+            {/* Leave Management Card */}
+            <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+              <div className="flex p-6">
+                <div className="flex-shrink-0 flex items-center justify-center w-16 h-16 bg-green-100 rounded-lg">
+                  <Image
+                    src="https://static.thenounproject.com/png/144676-200.png"
+                    width={40}
+                    height={40}
+                    alt="Leave Management Icon"
+                  />
+                </div>
+                <div className="ml-6">
+                  <h3 className="text-xl font-semibold text-gray-800">Leave Management</h3>
+                  <p className="mt-2 text-gray-600">Approve or disapprove employee leave requests</p>
+                </div>
+              </div>
+              <div className="px-6 py-4 bg-gray-50 border-t border-gray-100">
+                <Link href="#" className="flex items-center justify-between text-blue-600 hover:text-blue-800 font-medium">
+                  <span>View details</span>
+                  <ArrowRight size={16} />
+                </Link>
+              </div>
+            </div>
+
+            {/* Salary Management Card */}
+            <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+              <div className="flex p-6">
+                <div className="flex-shrink-0 flex items-center justify-center w-16 h-16 bg-purple-100 rounded-lg">
+                  <Image
+                    src="https://cdn-icons-png.flaticon.com/512/5525/5525464.png"
+                    width={40}
+                    height={40}
+                    alt="Salary Icon"
+                  />
+                </div>
+                <div className="ml-6">
+                  <h3 className="text-xl font-semibold text-gray-800">Salary Overview</h3>
+                  <p className="mt-2 text-gray-600">View previous salaries and use salary calculator</p>
+                </div>
+              </div>
+              <div className="px-6 py-4 bg-gray-50 border-t border-gray-100">
+                <Link href="#" className="flex items-center justify-between text-blue-600 hover:text-blue-800 font-medium">
+                  <span>View details</span>
+                  <ArrowRight size={16} />
+                </Link>
+              </div>
+            </div>
+
+            {/* Information View Card */}
+            <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+              <div className="flex p-6">
+                <div className="flex-shrink-0 flex items-center justify-center w-16 h-16 bg-yellow-100 rounded-lg">
+                  <Image
+                    src="https://cdn-icons-png.flaticon.com/512/1/1755.png"
+                    width={40}
+                    height={40}
+                    alt="Information Icon"
+                  />
+                </div>
+                <div className="ml-6">
+                  <h3 className="text-xl font-semibold text-gray-800">Information View</h3>
+                  <p className="mt-2 text-gray-600">View and manage all personal data and information</p>
+                </div>
+              </div>
+              <div className="px-6 py-4 bg-gray-50 border-t border-gray-100">
+                <Link href="#" className="flex items-center justify-between text-blue-600 hover:text-blue-800 font-medium">
+                  <span>View details</span>
+                  <ArrowRight size={16} />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  )
 }
