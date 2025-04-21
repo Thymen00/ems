@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { ArrowRight, Home, User, Calendar, DollarSign,  Menu, X, LogOut,  Clock,  } from "lucide-react"
+import { ArrowRight, Home, User, Calendar, DollarSign,  Menu, X, LogOut,  Clock, Database, UserRoundPen, FileUser    } from "lucide-react"
 import Link from 'next/link'
 import { useState } from 'react'
 
@@ -20,11 +20,7 @@ export default function Employee() {
         </div>
 
         <div className="flex flex-col flex-grow p-4 space-y-4">
-        <Link href="/employee/information-input" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-700 transition-colors">
-            <DollarSign size={22} />
-            {sidebarOpen && <span>Input</span>}
-          </Link>
-
+      
           <Link href="/" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-700 transition-colors">
             <Home size={22} />
             {sidebarOpen && <span>Home</span>}
@@ -33,6 +29,16 @@ export default function Employee() {
           <Link href="#" className="flex items-center space-x-3 p-3 rounded-lg bg-blue-700 transition-colors">
             <User size={22} />
             {sidebarOpen && <span>Dashboard</span>}
+          </Link>
+          
+          <Link href="/employee/information-input" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-700 transition-colors">
+            <Database size={22} />
+            {sidebarOpen && <span>Input</span>}
+          </Link>
+
+          <Link href="/employee/information-edit" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-700 transition-colors">
+            <UserRoundPen size={22} />
+            {sidebarOpen && <span>Edit</span>}
           </Link>
           
           <Link href="/employee/Attendance-dashboard" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-700 transition-colors">
@@ -48,6 +54,11 @@ export default function Employee() {
           <Link href="/employee/Salary-history" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-700 transition-colors">
             <DollarSign size={22} />
             {sidebarOpen && <span>Salary</span>}
+          </Link>
+          
+          <Link href="/employee/Information-view" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-700 transition-colors">
+            <FileUser size={22} />
+            {sidebarOpen && <span>View info</span>}
           </Link>
         </div>
         

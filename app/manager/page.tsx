@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { ArrowRight, Home, User, Calendar, DollarSign, FileText, Menu, X, LogOut } from "lucide-react"
+import { ArrowRight, Home, User, Calendar, DollarSign, FileText, Menu, X, LogOut, PlusCircle, Briefcase } from "lucide-react"
 import Link from 'next/link'
 import { useState } from 'react'
 
@@ -33,6 +33,16 @@ export default function Manager() {
           <Link href="#" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-700 transition-colors">
             <Calendar size={22} />
             {sidebarOpen && <span>Attendance</span>}
+          </Link>
+          
+          <Link href="#" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-700 transition-colors">
+            <Briefcase size={22} />
+            {sidebarOpen && <span>Leave Management</span>}
+          </Link>
+          
+          <Link href="#" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-700 transition-colors">
+            <PlusCircle size={22} />
+            {sidebarOpen && <span>Register Employee</span>}
           </Link>
           
           <Link href="#" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-700 transition-colors">
@@ -165,6 +175,32 @@ export default function Manager() {
               <div className="px-6 py-4 bg-gray-50 border-t border-gray-100">
                 <Link href="#" className="flex items-center justify-between text-blue-600 hover:text-blue-800 font-medium">
                   <span>View details</span>
+                  <ArrowRight size={16} />
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Centered Employee Register Card */}
+          <div className="mt-8 flex justify-center">
+            <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 w-full max-w-md">
+              <div className="flex p-6">
+                <div className="flex-shrink-0 flex items-center justify-center w-16 h-16 bg-blue-100 rounded-lg">
+                  <Image
+                    src="https://w7.pngwing.com/pngs/681/874/png-transparent-plus-sign-computer-icons-button-user-register-button-silhouette-internet-area-thumbnail.png"
+                    width={40}
+                    height={40}
+                    alt="Register Employee Icon"
+                  />
+                </div>
+                <div className="ml-6">
+                  <h3 className="text-xl font-semibold text-gray-800">Employee Register</h3>
+                  <p className="mt-2 text-gray-600">Register new employees to the system</p>
+                </div>
+              </div>
+              <div className="px-6 py-4 bg-gray-50 border-t border-gray-100">
+                <Link href="/manager/Register" className="flex items-center justify-between text-blue-600 hover:text-blue-800 font-medium">
+                  <span>Register Now</span>
                   <ArrowRight size={16} />
                 </Link>
               </div>
