@@ -1,12 +1,19 @@
 'use client'
 
-import Image from 'next/image'
-import { ArrowRight, Home, User, Calendar, DollarSign, FileText, Menu, X, LogOut, PlusCircle, Briefcase, Save } from "lucide-react"
-import Link from 'next/link'
-import { useState } from 'react'
+import { useState } from 'react';
+import Link from 'next/link';
+import { ChevronRight, ChevronDown, ArrowLeft, Save, PlusCircle } from "lucide-react"
+
+// Define a type for each dropdown item
+type DropdownItem = {
+    id: number;
+    title: string;
+    content: string;
+};
 
 export default function Register() {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  // State to track which dropdown is open (using ID), or null if none
+  const [openDropdownId, setOpenDropdownId] = useState<number | null>(null);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -18,7 +25,47 @@ export default function Register() {
     address: '',
   });
 
-  const handleChange = (e) => {
+  // Example dropdown items
+  const dropdownItems: DropdownItem[] = [
+    {
+        id: 1,
+        title: "Attendance Menu",
+        content: "At the start of your shift press present, at the end of your shift click leave."
+    },
+    {
+        id: 2,
+        title: "Leave Management",
+        content: "If the employee would like to leave for a longer period they have to get approval from the manager by requesting leave...."
+    },
+    {
+        id: 3,
+        title: "Salary",
+        content: "Used for easy calculating your salary and able to see the history salary."
+    },
+    {
+        id: 4,
+        title: "Information View",
+        content: "View all personal information and data"
+    },
+    {
+        id: 5,
+        title: "Register employee",
+        content: "For new employees a manager is able to register for the employee and make a new account"
+    }
+  ];
+
+  // Handler for clicking a dropdown bar
+  const handleDropdownClick = (id: number) => {
+    if (openDropdownId === id) {
+      // If clicking on already open dropdown, close it
+      setOpenDropdownId(null);
+    } else {
+      // Otherwise, open the clicked dropdown (and close any other)
+      setOpenDropdownId(id);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -26,7 +73,7 @@ export default function Register() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
     // Here you would typically send the data to your backend API
@@ -41,87 +88,65 @@ export default function Register() {
       startDate: '',
       salary: '',
       address: '',
-
     });
   };
 
   return (
-    <div className="flex h-screen bg-gray-100">
-      {/* Sidebar */}
-      <div className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-blue-800 text-white transition-all duration-300 flex flex-col`}>
-        <div className="flex items-center justify-between p-4 border-b border-blue-700">
-          {sidebarOpen && <h2 className="text-xl font-bold">EMS System</h2>}
-          <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2 rounded-md hover:bg-blue-700">
-            {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+      {/* Header */}
+      <header className="bg-white shadow-md py-4 px-6 flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <Link 
+            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            href="/manager"
+          >
+            <ArrowLeft size={18} />
+            <span>Dashboard</span>
+          </Link>
+          <h1 className="text-2xl font-bold text-gray-800">Employee Registration</h1>
         </div>
-
-        <div className="flex flex-col flex-grow p-4 space-y-4">
-          <Link href="/" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-700 transition-colors">
-            <Home size={22} />
-            {sidebarOpen && <span>Home</span>}
-          </Link>
-          
-          <Link href="/manager" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-700 transition-colors">
-            <User size={22} />
-            {sidebarOpen && <span>Dashboard</span>}
-          </Link>
-          
-          <Link href="#" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-700 transition-colors">
-            <Calendar size={22} />
-            {sidebarOpen && <span>Attendance</span>}
-          </Link>
-          
-          <Link href="#" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-700 transition-colors">
-            <Briefcase size={22} />
-            {sidebarOpen && <span>Leave Management</span>}
-          </Link>
-          
-          <Link href="/manager/Register" className="flex items-center space-x-3 p-3 rounded-lg bg-blue-700 transition-colors">
-            <PlusCircle size={22} />
-            {sidebarOpen && <span>Register Employee</span>}
-          </Link>
-          
-          <Link href="#" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-700 transition-colors">
-            <DollarSign size={22} />
-            {sidebarOpen && <span>Payroll</span>}
-          </Link>
-          
-          <Link href="#" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-700 transition-colors">
-            <FileText size={22} />
-            {sidebarOpen && <span>Reports</span>}
-          </Link>
-        </div>
-        
-        <div className="p-4 border-t border-blue-700">
-          <Link href="/" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-700 transition-colors">
-            <LogOut size={22} />
-            {sidebarOpen && <span>Logout</span>}
-          </Link>
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Top Navigation */}
-        <header className="bg-white shadow">
-          <div className="px-6 py-4 flex items-center justify-between">
-            <h1 className="text-2xl font-bold text-gray-800">Employee Registration</h1>
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2">
-                <div className="w-10 h-10 rounded-full bg-blue-800 flex items-center justify-center text-white">
-                  <span className="font-bold">JD</span>
-                </div>
-                <span className="font-medium">John Doe</span>
-              </div>
-            </div>
+        <div className="flex items-center gap-3">
+          <div className="bg-blue-100 px-3 py-1 rounded-full text-blue-800 text-sm">
+            <span className="font-medium">John Doe (Manager)</span>
           </div>
-        </header>
+        </div>
+      </header>
 
-        {/* Registration Form */}
-        <main className="flex-1 overflow-y-auto p-6 bg-gray-100">
-          <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-md p-6">
-            <h2 className="text-xl font-semibold mb-6 text-center">Register New Employee</h2>
+      <div className="container mx-auto mt-6 grid grid-cols-12 gap-6 px-4">
+        {/* Navigation Menu */}
+        <aside className="col-span-3 bg-white rounded-xl shadow-lg overflow-hidden">
+          <div className="p-4 bg-blue-600 text-white">
+            <h2 className="text-xl font-semibold">Navigation Menu</h2>
+          </div>
+          <nav className="p-2">
+            {dropdownItems.map((item) => (
+              <div key={item.id} className="mb-1">
+                <div
+                  className={`flex items-center p-3 rounded-lg cursor-pointer hover:bg-blue-50 transition-colors ${openDropdownId === item.id || (item.id === 5) ? 'bg-blue-50' : ''}`}
+                  onClick={() => handleDropdownClick(item.id)}
+                >
+                  <div className="mr-2 text-blue-600">
+                    {openDropdownId === item.id ? <ChevronDown size={18} /> : <ChevronRight size={18} />}
+                  </div>
+                  <span className={`${openDropdownId === item.id || (item.id === 5) ? 'font-medium text-blue-700' : 'text-gray-700'}`}>
+                    {item.title}
+                  </span>
+                </div>
+                
+                {openDropdownId === item.id && (
+                  <div className="ml-6 pl-3 border-l-2 border-blue-200 text-gray-600 py-2 pr-2 text-sm">
+                    <p>{item.content}</p>
+                  </div>
+                )}
+              </div>
+            ))}
+          </nav>
+        </aside>
+
+        {/* Main Content - Registration Form */}
+        <main className="col-span-9">
+          <div className="bg-white rounded-xl shadow-lg overflow-hidden p-6">
+            <h2 className="text-xl font-semibold mb-6 text-blue-700">Register New Employee</h2>
             
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -145,7 +170,7 @@ export default function Register() {
                       type="text"
                       name="lastName"
                       value={formData.lastName}
-                      onChange={handleChange}
+                      onChange={handleChange} 
                       className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                       required
                     />
@@ -181,7 +206,7 @@ export default function Register() {
                       value={formData.address}
                       onChange={handleChange}
                       className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      rows="3"
+                      rows={3}
                     ></textarea>
                   </div>
                 </div>
@@ -199,8 +224,6 @@ export default function Register() {
                       required
                     />
                   </div>
-                  
-                  
                   
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
@@ -225,8 +248,6 @@ export default function Register() {
                       required
                     />
                   </div>
-                  
-                  
                 </div>
               </div>
               
@@ -236,7 +257,7 @@ export default function Register() {
                   type="submit"
                   className="flex items-center px-8 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
                 >
-                  <Save className="mr-2" size={20} />
+                  <PlusCircle className="mr-2" size={20} />
                   Register Employee
                 </button>
               </div>

@@ -40,10 +40,7 @@ export default function Manager() {
             {sidebarOpen && <span>Leave Management</span>}
           </Link>
           
-          <Link href="#" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-700 transition-colors">
-            <PlusCircle size={22} />
-            {sidebarOpen && <span>Register Employee</span>}
-          </Link>
+          
           
           <Link href="#" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-700 transition-colors">
             <DollarSign size={22} />
@@ -52,7 +49,12 @@ export default function Manager() {
           
           <Link href="#" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-700 transition-colors">
             <FileText size={22} />
-            {sidebarOpen && <span>Reports</span>}
+            {sidebarOpen && <span>View info</span>}
+          </Link>
+
+          <Link href="#" className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-700 transition-colors">
+            <PlusCircle size={22} />
+            {sidebarOpen && <span>Register Employee</span>}
           </Link>
         </div>
         
@@ -101,7 +103,7 @@ export default function Manager() {
                 </div>
               </div>
               <div className="px-6 py-4 bg-gray-50 border-t border-gray-100">
-                <Link href="#" className="flex items-center justify-between text-blue-600 hover:text-blue-800 font-medium">
+                <Link href="/manager/Attendance" className="flex items-center justify-between text-blue-600 hover:text-blue-800 font-medium">
                   <span>View details</span>
                   <ArrowRight size={16} />
                 </Link>
@@ -125,7 +127,7 @@ export default function Manager() {
                 </div>
               </div>
               <div className="px-6 py-4 bg-gray-50 border-t border-gray-100">
-                <Link href="#" className="flex items-center justify-between text-blue-600 hover:text-blue-800 font-medium">
+                <Link href="/manager/Leave-managemant" className="flex items-center justify-between text-blue-600 hover:text-blue-800 font-medium">
                   <span>View details</span>
                   <ArrowRight size={16} />
                 </Link>
@@ -149,7 +151,7 @@ export default function Manager() {
                 </div>
               </div>
               <div className="px-6 py-4 bg-gray-50 border-t border-gray-100">
-                <Link href="#" className="flex items-center justify-between text-blue-600 hover:text-blue-800 font-medium">
+                <Link href="/manager/salary" className="flex items-center justify-between text-blue-600 hover:text-blue-800 font-medium">
                   <span>View details</span>
                   <ArrowRight size={16} />
                 </Link>
@@ -173,7 +175,7 @@ export default function Manager() {
                 </div>
               </div>
               <div className="px-6 py-4 bg-gray-50 border-t border-gray-100">
-                <Link href="#" className="flex items-center justify-between text-blue-600 hover:text-blue-800 font-medium">
+                <Link href="/manager/information-view" className="flex items-center justify-between text-blue-600 hover:text-blue-800 font-medium">
                   <span>View details</span>
                   <ArrowRight size={16} />
                 </Link>

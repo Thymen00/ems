@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react';
 import Link from 'next/link';
-import { ChevronRight, ChevronDown, Check, ArrowLeft, Save, X } from "lucide-react";
+import { ChevronRight, ChevronDown, Check, ArrowLeft, Save, X, User, Mail, Phone, Home, Briefcase, Calendar, Award } from "lucide-react";
 
 // Define a type for each dropdown item
 type DropdownItem = {
@@ -13,9 +13,6 @@ type DropdownItem = {
 const DropdownComponent = () => {
   // State to track which dropdown is open (using ID), or null if none
   const [openDropdownId, setOpenDropdownId] = useState<number | null>(null);
-  const [selectedData, setSelectedData] = useState<string | null>(null);
-  const [currentValue, setCurrentValue] = useState<string>("");
-  const [showDropdown, setShowDropdown] = useState(false);
 
   // Example dropdown items
   const dropdownItems: DropdownItem[] = [
@@ -51,37 +48,12 @@ const DropdownComponent = () => {
     }
   ];
 
-  const dataOptions = [
-    "First and last name",
-    "E-mail",
-    "Phone number",
-    "Home address",
-    "Job role"
-  ];
-
   // Handler for clicking a dropdown bar
   const handleDropdownClick = (id: number) => {
     if (openDropdownId === id) {
       setOpenDropdownId(null);
     } else {
       setOpenDropdownId(id);
-    }
-  };
-
-  const handleOptionSelect = (option: string) => {
-    setSelectedData(option);
-    setShowDropdown(false);
-    // Mock existing data based on selection
-    if (option === "First and last name") {
-      setCurrentValue("John Doe");
-    } else if (option === "E-mail") {
-      setCurrentValue("john.doe@example.com");
-    } else if (option === "Phone number") {
-      setCurrentValue("+1 (555) 123-4567");
-    } else if (option === "Home address") {
-      setCurrentValue("123 Main St, Anytown, USA");
-    } else if (option === "Job role") {
-      setCurrentValue("Software Developer");
     }
   };
   
@@ -92,13 +64,13 @@ const DropdownComponent = () => {
         <div className="container mx-auto flex items-center justify-between">
           <div className="flex items-center gap-6">
             <Link 
-              href="/employee" 
+              href="/manager" 
               className="flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium"
             >
               <ArrowLeft size={18} />
               <span>Return to Dashboard</span>
             </Link>
-            <h1 className="text-2xl font-bold text-gray-800">Edit Information</h1>
+            <h1 className="text-2xl font-bold text-gray-800">Personal Information</h1>
           </div>
           <div className="flex items-center gap-4">
             <div className="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center">
@@ -139,91 +111,78 @@ const DropdownComponent = () => {
           </div>
         </div>
 
-        {/* Main Content */}
+        {/* Main Content - Personal Information View */}
         <div className="col-span-3">
           <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-6">Edit Your Information</h2>
-            
-            <div className="mb-8">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Select information to edit
-              </label>
-              <div className="relative">
-                <button 
-                  className="w-full flex justify-between items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-50"
-                  onClick={() => setShowDropdown(!showDropdown)}
-                >
-                  {selectedData || "Choose data to edit"}
-                  <ChevronDown size={18} className="text-gray-400" />
-                </button>
-                
-                {showDropdown && (
-                  <div className="absolute w-full mt-1 bg-white border border-gray-200 rounded-md shadow-lg z-10">
-                    <ul className="py-1 max-h-60 overflow-auto">
-                      {dataOptions.map((option, index) => (
-                        <li 
-                          key={index} 
-                          className="px-4 py-2 hover:bg-blue-50 cursor-pointer flex items-center text-gray-700"
-                          onClick={() => handleOptionSelect(option)}
-                        >
-                          {selectedData === option && (
-                            <Check size={16} className="mr-2 text-blue-600" />
-                          )}
-                          <span className={selectedData === option ? "font-medium" : ""}>
-                            {option}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
+            <div className="flex items-center gap-4 mb-8">
+              <div className="w-24 h-24 rounded-full bg-blue-500 text-white flex items-center justify-center text-3xl font-bold">
+                JD
               </div>
-              
-              {!selectedData && (
-                <p className="mt-2 text-sm text-red-500">Please select data to edit</p>
-              )}
+              <div>
+                <h2 className="text-2xl font-bold text-gray-800">John Doe</h2>
+                <p className="text-gray-600">Software Developer</p>
+                <p className="text-sm text-gray-500">Employee ID: EMP042</p>
+              </div>
             </div>
-            
-            {selectedData && (
-              <div className="mb-8">
-                <h3 className="text-lg font-medium text-gray-800 mb-4">
-                  Editing: {selectedData}
-                </h3>
-                
+
+            <div className="grid grid-cols-2 gap-6">
+              {/* Personal Information Card */}
+              <div className="bg-gray-50 rounded-lg p-6 border border-gray-200">
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">Personal Information</h3>
                 <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Current value:
-                    </label>
-                    <div className="px-4 py-2 bg-gray-100 text-gray-700 rounded-md">
-                      {currentValue}
+                  <div className="flex items-center gap-3">
+                    <User className="text-blue-600" size={20} />
+                    <div>
+                      <p className="text-sm text-gray-500">Full Name</p>
+                      <p className="font-medium text-gray-800">John Michael Doe</p>
                     </div>
                   </div>
-                  
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      New value:
-                    </label>
-                    <input 
-                      type="text" 
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                      placeholder="Enter new value"
-                    />
+                  <div className="flex items-center gap-3">
+                    <Home className="text-blue-600" size={20} />
+                    <div>
+                      <p className="text-sm text-gray-500">Address</p>
+                      <p className="font-medium text-gray-800">123 Main Street, Apt 4B</p>
+                      <p className="font-medium text-gray-800">New York, NY 10001</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Calendar className="text-blue-600" size={20} />
+                    <div>
+                      <p className="text-sm text-gray-500">Date of Birth</p>
+                      <p className="font-medium text-gray-800">January 15, 1990</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            )}
-            
-            <div className="flex justify-end gap-4 mt-6">
-              <button className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 flex items-center gap-2">
-                <X size={18} />
-                Cancel
-              </button>
-              <button className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 flex items-center gap-2">
-                <Save size={18} />
-                Save Changes
-              </button>
+
+              {/* Contact Information Card */}
+              <div className="bg-gray-50 rounded-lg p-6 border border-gray-200">
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">Contact Information</h3>
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <Mail className="text-blue-600" size={20} />
+                    <div>
+                      <p className="text-sm text-gray-500">Email</p>
+                      <p className="font-medium text-gray-800">john.doe@company.com</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Phone className="text-blue-600" size={20} />
+                    <div>
+                      <p className="text-sm text-gray-500">Phone Number</p>
+                      <p className="font-medium text-gray-800">+1 (555) 123-4567</p>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+
+              
+
+              
             </div>
+
+            
           </div>
         </div>
       </div>
